@@ -3,18 +3,32 @@ import { react } from "./comp/state.js"
 
 class CounterBtn {
 	kind = 'component'
-	state = react({ count: 0 })
+	state = react({ count: 0, count2: 0 })
 
 	increment = () => {
 		this.state.count++
+	}
+
+	increment2 = () => {
+		this.state.count2 += this.state.count * 1000
 	}
 
 	children = [
 		hstack(
 			button(
 				"inc: ",
-				span(() => this.state.count)
-			).onClick(this.increment),
+				span(() => this.state.count),
+				" | ",
+				span(() => this.state.count2),
+			).onClick(() => {
+				for (let i = 0; i < 1000; i += 1) {
+					this.increment()
+				}
+
+				for (let i = 0; i < 700; i += 1) {
+					this.increment2()
+				}
+			}),
 			span('ICON')
 		).align('center', 'center').padding(12)
 	]

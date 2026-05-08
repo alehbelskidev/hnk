@@ -1,4 +1,21 @@
 let activeEffect = null
+const effectQueue = new Set()
+let isPending = false
+
+function flushEffectQueue() {
+	console.debug(`[FLUSHING]: ${effectQueue.size} effects`);
+	effectQueue.forEach(fn => fn())
+	effectQueue.clear()
+	isPending = false
+}
+
+export function queueEffect(fn) {
+	effectQueue.add(fn)
+	if (!isPending) {
+		isPending = true
+		queueMicrotask(flushEffectQueue)
+	}
+}
 
 export function react(data) {
 	const deps = new Map()
@@ -13,10 +30,11 @@ export function react(data) {
 			return target[prop]
 		},
 		set(target, prop, value) {
+			if (target[prop] === value) return true
 			target[prop] = value
 
 			if (deps.has(prop)) {
-				deps.get(prop).forEach(update => update())
+				deps.get(prop).forEach(fn => queueEffect(fn))
 			}
 
 			return true
