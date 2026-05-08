@@ -1,5 +1,5 @@
-import Counter from "./counter";
-import { createElements } from "./comp/renderer";
+import Counter from "./counter"
+import { createElements } from "./hnk/renderer"
 
 const root = Counter()
 

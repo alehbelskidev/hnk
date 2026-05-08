@@ -1,4 +1,4 @@
-import { vstack, span } from "./comp/element"
+import { vstack, span } from "./hnk/element"
 import CounterBtn from "./counter-btn"
 
 

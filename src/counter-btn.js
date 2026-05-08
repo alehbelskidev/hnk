@@ -1,9 +1,9 @@
-import { hstack, button, span } from "./comp/element.js"
-import { react } from "./comp/state.js"
+import { hstack, button, span } from "./hnk/element"
+import { honk } from "./hnk/state"
 
 class CounterBtn {
 	kind = 'component'
-	state = react({ count: 0, count2: 0 })
+	state = honk({ count: 0, count2: 0 })
 
 	increment = () => {
 		this.state.count++

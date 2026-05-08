@@ -17,7 +17,7 @@ export function queueEffect(fn) {
 	}
 }
 
-export function react(data) {
+export function honk(data) {
 	const deps = new Map()
 
 	return new Proxy(data, {
